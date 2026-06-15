@@ -43,11 +43,17 @@
         </svg>
       </div>
       <h1 class="title">One Piece</h1>
-      <p class="subtitle">Bitácora de Viaje — registro de la Gran Travesía</p>
+      <p class="subtitle" data-i18n="subtitle">Bitácora de Viaje — registro de la Gran Travesía</p>
 
-      <div class="theme-toggle" role="group" aria-label="Cambiar tema visual">
-        <button id="th-grandline" aria-pressed="true">Grand Line</button>
-        <button id="th-bitacora" aria-pressed="false">Bitácora</button>
+      <div class="toggles-row">
+        <div class="theme-toggle" role="group" data-i18n-aria="themeAria" aria-label="Cambiar tema visual">
+          <button id="th-grandline" data-i18n="themeGrandline" aria-pressed="true">Grand Line</button>
+          <button id="th-bitacora" data-i18n="themeBitacora" aria-pressed="false">Bitácora</button>
+        </div>
+        <div class="theme-toggle lang-toggle" role="group" data-i18n-aria="langAria" aria-label="Cambiar idioma">
+          <button id="lang-es" aria-pressed="true">ES</button>
+          <button id="lang-en" aria-pressed="false">EN</button>
+        </div>
       </div>
     </header>
 
@@ -57,33 +63,33 @@
 
         <!-- Marcador grande -->
         <div class="counter">
-          <span class="eyebrow">Capítulos vistos</span>
+          <span class="eyebrow" data-i18n="counterEyebrow">Capítulos vistos</span>
           <span class="big" id="count-num">0</span>
-          <span class="of">de <b id="count-total">—</b> emitidos</span>
+          <span class="of"><span data-i18n="ofPre">de</span> <b id="count-total">—</b> <span data-i18n="ofPost">emitidos</span></span>
           <div class="bar"><i id="count-bar"></i></div>
           <span class="pct" id="count-pct">0%</span>
           <div class="tallies">
-            <span class="tally">Sagas <b id="t-sagas">0/0</b></span>
-            <span class="tally">Extras <b id="t-extras">0/0</b></span>
+            <span class="tally"><span data-i18n="tSagas">Sagas</span> <b id="t-sagas">0/0</b></span>
+            <span class="tally"><span data-i18n="tExtras">Extras</span> <b id="t-extras">0/0</b></span>
           </div>
         </div>
 
         <!-- Controles de progreso -->
         <div class="controls">
           <div class="seg" role="group" aria-label="Modo de conteo">
-            <button id="mode-daily"  aria-pressed="true">📅 Diario</button>
-            <button id="mode-manual" aria-pressed="false">✍️ Manual</button>
+            <button id="mode-daily"  data-i18n="modeDaily"  aria-pressed="true">📅 Diario</button>
+            <button id="mode-manual" data-i18n="modeManual" aria-pressed="false">✍️ Manual</button>
           </div>
 
           <!-- Modo diario -->
           <div class="mode-block active" id="block-daily">
             <div class="row2">
               <div class="field">
-                <label for="start-date">Empecé el…</label>
+                <label for="start-date" data-i18n="labelStartDate">Empecé el…</label>
                 <input type="date" id="start-date" />
               </div>
               <div class="field">
-                <label for="start-ep">…desde el cap.</label>
+                <label for="start-ep" data-i18n="labelStartEp">…desde el cap.</label>
                 <input type="number" id="start-ep" min="1" value="1" />
               </div>
             </div>
@@ -93,79 +99,80 @@
           <!-- Modo manual -->
           <div class="mode-block" id="block-manual">
             <div class="field">
-              <label for="manual-count">¿Cuántos capítulos llevas vistos?</label>
+              <label for="manual-count" data-i18n="labelManualCount">¿Cuántos capítulos llevas vistos?</label>
               <input type="number" id="manual-count" min="0" value="0" />
             </div>
-            <span class="field hint">Pon el número exacto; tú mandas en este modo.</span>
+            <span class="field hint" data-i18n="hintManual">Pon el número exacto; tú mandas en este modo.</span>
           </div>
 
-          <button class="ghost-btn" id="open-settings">⚙️ Ajustes y auto-marcado</button>
+          <button class="ghost-btn" id="open-settings" data-i18n="btnSettings">⚙️ Ajustes y auto-marcado</button>
         </div>
       </div>
     </section>
 
     <!-- ============ LÍNEA DE TIEMPO ============ -->
     <div class="legend">
-      <h2>La Travesía</h2>
+      <h2 data-i18n="legendTitle">La Travesía</h2>
       <span class="line"></span>
     </div>
     <main class="timeline" id="timeline"><!-- generado por JS --></main>
 
-    <footer class="footer">⚓ El que será el Rey de los Piratas… ¡eres tú! ⚓</footer>
+    <footer class="footer" data-i18n="footer">⚓ El que será el Rey de los Piratas… ¡eres tú! ⚓</footer>
   </div>
 
   <!-- Botón flotante: ir a la saga actual (solo si no está a la vista) -->
-  <button class="goto-current" id="goto-current"><span class="sail">⛵</span> Ir a la saga actual</button>
+  <button class="goto-current" id="goto-current"><span class="sail">⛵</span> <span data-i18n="gotoCurrent">Ir a la saga actual</span></button>
 
   <!-- Aviso flotante -->
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- Botón flotante de ajustes -->
-  <button class="fab" id="open-settings-fab" title="Ajustes">⚙️</button>
+  <button class="fab" id="open-settings-fab" data-i18n-title="fabTitle" title="Ajustes">⚙️</button>
 
   <!-- ============ MODAL DE AJUSTES ============ -->
   <div class="modal" id="settings-modal" role="dialog" aria-modal="true" aria-labelledby="settings-title">
     <div class="sheet">
-      <button class="close-x" id="close-settings" aria-label="Cerrar">✕</button>
-      <h3 id="settings-title">Ajustes del Log Pose</h3>
-      <p class="lead">Decide qué se marca solo y qué marcas a mano.</p>
+      <button class="close-x" id="close-settings" data-i18n-aria="closeAria" aria-label="Cerrar">✕</button>
+      <h3 id="settings-title" data-i18n="settingsTitle">Ajustes del Log Pose</h3>
+      <p class="lead" data-i18n="settingsLead">Decide qué se marca solo y qué marcas a mano.</p>
 
       <div class="field">
-        <label for="latest-ep">Último episodio emitido (actualidad)</label>
+        <label for="latest-ep" data-i18n="labelLatestEp">Último episodio emitido (actualidad)</label>
         <input type="number" id="latest-ep" min="1" />
       </div>
 
-      <p style="font-family:var(--font-title);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin:6px 0 2px;">Auto-marcado por tipo</p>
+      <p class="modal-head" data-i18n="autoHeading">Auto-marcado por tipo</p>
       <div class="auto-list" id="auto-list"><!-- generado por JS --></div>
 
-      <p class="note">
+      <p class="note" data-i18n-html="note">
         <b>Activado:</b> ese tipo se marca solo al pasar su episodio en la línea de visionado.<br>
         <b>Desactivado:</b> lo marcas/desmarcas tú a mano (útil si te saltaste algo).
         Al desactivar, se conserva lo que ya estaba marcado.
       </p>
 
-      <p style="font-family:var(--font-title);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-soft);margin:18px 0 2px;">Copia de seguridad</p>
+      <p class="modal-head" data-i18n="backupHeading">Copia de seguridad</p>
       <div class="backup-grid">
-        <button class="ghost-btn" id="export-file">⬇️ Exportar archivo</button>
-        <button class="ghost-btn" id="import-file-btn">⬆️ Importar archivo</button>
+        <button class="ghost-btn" id="export-file" data-i18n="btnExportFile">⬇️ Exportar archivo</button>
+        <button class="ghost-btn" id="import-file-btn" data-i18n="btnImportFile">⬆️ Importar archivo</button>
       </div>
       <input type="file" id="import-file" accept="application/json,.json" hidden />
 
-      <label class="code-label" for="code-box">Código de progreso — cópialo para guardarlo, o pega uno y pulsa «Aplicar».</label>
-      <textarea id="code-box" class="code-box" rows="4" spellcheck="false" placeholder="Tu código aparecerá aquí al abrir Ajustes…"></textarea>
+      <label class="code-label" for="code-box" data-i18n="codeLabel">Código de progreso — cópialo para guardarlo, o pega uno y pulsa «Aplicar».</label>
+      <textarea id="code-box" class="code-box" rows="4" spellcheck="false" data-i18n-ph="codePlaceholder" placeholder="Tu código aparecerá aquí al abrir Ajustes…"></textarea>
       <div class="backup-grid">
-        <button class="ghost-btn" id="copy-code">📋 Copiar</button>
-        <button class="ghost-btn" id="apply-code">📥 Aplicar código</button>
+        <button class="ghost-btn" id="copy-code" data-i18n="btnCopy">📋 Copiar</button>
+        <button class="ghost-btn" id="apply-code" data-i18n="btnApply">📥 Aplicar código</button>
       </div>
 
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px;flex-wrap:wrap;">
-        <button class="danger" id="reset-progress">↺ Reiniciar progreso</button>
-        <button class="ghost-btn" id="close-settings-2">Listo</button>
+        <button class="danger" id="reset-progress" data-i18n="btnReset">↺ Reiniciar progreso</button>
+        <button class="ghost-btn" id="close-settings-2" data-i18n="btnDone">Listo</button>
       </div>
     </div>
   </div>
 
   <script src="data.js"></script>
+  <script src="i18n.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

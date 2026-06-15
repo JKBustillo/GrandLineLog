@@ -1,6 +1,6 @@
 /* =====================================================================
    ONE PIECE · BITÁCORA DE VIAJE — LÓGICA
-   Vanilla JS. Persiste todo en localStorage.
+   Vanilla JS. Persiste todo en localStorage. Bilingüe (es/en).
    ===================================================================== */
 'use strict';
 
@@ -14,6 +14,7 @@ const MIN_LATEST = Math.max(...CONTENT.filter(c => c.type === 'saga').map(c => c
 /* ----------------------------- Estado ----------------------------- */
 function defaultState() {
   return {
+    lang: 'es',                    // 'es' | 'en'  (por defecto español)
     theme: 'grandline',
     mode: 'daily',                 // 'daily' | 'manual'
     startDate: todayISO(),
@@ -46,6 +47,42 @@ function loadState() {
 function saveState() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
   catch (e) { console.warn('No se pudo guardar:', e); }
+}
+
+/* ----------------------------- i18n ----------------------------- */
+// Cadena de interfaz en el idioma activo.
+function t(key) { return STRINGS[state.lang][key]; }
+// Texto de un campo bilingüe (acepta string plano u objeto { es, en }).
+function tx(field) {
+  if (field == null) return '';
+  return (typeof field === 'string') ? field : (field[state.lang] ?? field.es ?? '');
+}
+
+// Aplica los textos estáticos marcados con data-i18n* en el HTML.
+function applyStaticI18n() {
+  const L = STRINGS[state.lang];
+  document.documentElement.lang = state.lang;
+  document.title = L.docTitle;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = L[el.getAttribute('data-i18n')];
+    if (typeof v === 'string') el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = L[el.getAttribute('data-i18n-html')];
+    if (typeof v === 'string') el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const v = L[el.getAttribute('data-i18n-ph')];
+    if (typeof v === 'string') el.placeholder = v;
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const v = L[el.getAttribute('data-i18n-title')];
+    if (typeof v === 'string') el.title = v;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const v = L[el.getAttribute('data-i18n-aria')];
+    if (typeof v === 'string') el.setAttribute('aria-label', v);
+  });
 }
 
 /* ----------------------------- Utilidades ----------------------------- */
@@ -126,8 +163,8 @@ function render() {
     const today = midnight(new Date());
     const days = (!isNaN(start) && today >= start) ? Math.floor((today - start)/DAY) + 1 : 0;
     $('#daily-hint').textContent = days > 0
-      ? `Llevas ${days} día${days===1?'':'s'} de viaje → vas por el capítulo ${watched}.`
-      : `Tu viaje empieza ese día. Cada jornada sumará 1 capítulo.`;
+      ? STRINGS[state.lang].dailyHintDays(days, watched)
+      : STRINGS[state.lang].dailyHintZero;
   }
 
   // --- Línea de tiempo ---
@@ -136,6 +173,7 @@ function render() {
   CONTENT.forEach((item, i) => {
     const st = statuses[i];
     const info = TYPE_INFO[item.type];
+    const stamp = st.caughtUp ? t('stampCaught') : t('stampSeen');
 
     const art = document.createElement('article');
     art.className = 'entry'
@@ -143,19 +181,18 @@ function render() {
       + (st.done ? ' done' : '')
       + (st.current ? ' current' : '');
     art.dataset.id = item.id;
-    art.dataset.stamp = st.caughtUp ? 'AL DÍA' : 'VISTO';
     art.style.animationDelay = Math.min(i * 0.028, 1.2) + 's';
 
     // rango / hito
     const range = st.isSaga
-      ? (item.end === null ? `Ep. ${item.start}– · en emisión` : `Ep. ${item.start}–${item.end}`)
-      : `Tras el ep. ${item.after}`;
+      ? (item.end === null ? `Ep. ${item.start}– · ${t('airing')}` : `Ep. ${item.start}–${item.end}`)
+      : `${t('after')} ${item.after}`;
 
     // etiquetas contextuales
     let tags = '';
-    if (st.current) tags += `<span class="tag now">Vas por aquí · cap. ${watched}</span>`;
-    if (st.ongoing && !st.current) tags += `<span class="tag air">En emisión</span>`;
-    if (st.ready) tags += `<span class="tag ready">¡Listo para marcar!</span>`;
+    if (st.current) tags += `<span class="tag now">${t('youAreHere')} ${watched}</span>`;
+    if (st.ongoing && !st.current) tags += `<span class="tag air">${t('onAir')}</span>`;
+    if (st.ready) tags += `<span class="tag ready">${t('readyToMark')}</span>`;
 
     // barra parcial de la saga en curso
     const subbar = st.current
@@ -163,20 +200,20 @@ function render() {
 
     // control de marcado
     const markHTML = st.autoOn
-      ? `<div class="lock" title="Auto-marcado activado para ${info.plural.toLowerCase()}">
-           <span class="auto-pill">Auto</span><span>${st.done ? 'visto' : 'pend.'}</span></div>`
+      ? `<div class="lock" title="${t('autoOnFor')} ${tx(info.plural).toLowerCase()}">
+           <span class="auto-pill">${t('auto')}</span><span>${st.done ? t('seen') : t('pending')}</span></div>`
       : `<button class="check" data-mark="${item.id}" aria-pressed="${st.done}"
-            title="${st.done ? 'Desmarcar' : 'Marcar como visto'}">${st.done ? '✓' : ''}</button>`;
+            title="${st.done ? t('unmark') : t('markSeen')}">${st.done ? '✓' : ''}</button>`;
 
     art.innerHTML = `
       <div class="node"></div>
-      ${st.current ? '<span class="youarehere" title="Estás aquí">⛵</span>' : ''}
-      <div class="card" data-stamp="${st.caughtUp ? 'AL DÍA' : 'VISTO'}">
+      ${st.current ? `<span class="youarehere" title="${t('youAreHereTitle')}">⛵</span>` : ''}
+      <div class="card" data-stamp="${stamp}">
         <div class="medal">${info.icon}</div>
         <div class="body">
-          <div class="kind">${info.label} · ${range}</div>
-          <div class="name">${item.title}</div>
-          ${item.sub ? `<div class="sub">${item.sub}</div>` : ''}
+          <div class="kind">${tx(info.label)} · ${range}</div>
+          <div class="name">${tx(item.title)}</div>
+          ${item.sub ? `<div class="sub">${tx(item.sub)}</div>` : ''}
           ${tags ? `<div class="meta">${tags}</div>` : ''}
           ${subbar}
         </div>
@@ -198,6 +235,19 @@ $('#timeline').addEventListener('click', (e) => {
   state.manualMarks[id] = !state.manualMarks[id];
   saveState(); render();
 });
+
+// Idioma
+function setLang(lang) {
+  state.lang = lang;
+  $('#lang-es').setAttribute('aria-pressed', lang === 'es');
+  $('#lang-en').setAttribute('aria-pressed', lang === 'en');
+  applyStaticI18n();
+  buildAutoList();
+  render();
+  saveState();
+}
+$('#lang-es').addEventListener('click', () => setLang('es'));
+$('#lang-en').addEventListener('click', () => setLang('en'));
 
 // Tema
 function setTheme(theme) {
@@ -251,11 +301,12 @@ function buildAutoList() {
   Object.keys(TYPE_INFO).forEach(type => {
     const info = TYPE_INFO[type];
     const count = CONTENT.filter(c => c.type === type).length;
+    const when = type === 'saga' ? t('whenPassSaga') : t('whenPassExtra');
     const row = document.createElement('div');
     row.className = 'auto-row';
     row.innerHTML = `
-      <span class="lbl">${info.icon} ${info.plural}
-        <small>${count} en la lista · ${type === 'saga' ? 'al pasar su último cap.' : 'al pasar su episodio'}</small>
+      <span class="lbl">${info.icon} ${tx(info.plural)}
+        <small>${count} ${t('inList')} · ${when}</small>
       </span>
       <label class="switch">
         <input type="checkbox" data-auto="${type}" ${state.auto[type] ? 'checked' : ''}>
@@ -283,13 +334,13 @@ $('#auto-list').addEventListener('change', e => {
 
 // Reiniciar progreso
 $('#reset-progress').addEventListener('click', () => {
-  if (!confirm('¿Seguro que quieres reiniciar tu progreso? (capítulos y marcas manuales)')) return;
-  const keepTheme = state.theme, keepAuto = state.auto, keepLatest = state.latestEpisode;
+  if (!confirm(t('confirmReset'))) return;
+  const keepLang = state.lang, keepTheme = state.theme, keepAuto = state.auto, keepLatest = state.latestEpisode;
   state = defaultState();
-  state.theme = keepTheme; state.auto = keepAuto; state.latestEpisode = keepLatest;
+  state.lang = keepLang; state.theme = keepTheme; state.auto = keepAuto; state.latestEpisode = keepLatest;
   saveState();
   refreshUIFromState();
-  toast('Progreso reiniciado');
+  toast(t('toastReset'));
 });
 
 /* ----------------------------- Init ----------------------------- */
@@ -300,24 +351,24 @@ function syncInputs() {
   $('#latest-ep').value = state.latestEpisode;
 }
 function refreshUIFromState() {
+  setLang(state.lang);            // fija idioma + aplica textos + buildAutoList + render
   setTheme(state.theme);
   $('#mode-daily').setAttribute('aria-pressed', state.mode === 'daily');
   $('#mode-manual').setAttribute('aria-pressed', state.mode === 'manual');
   $('#block-daily').classList.toggle('active', state.mode === 'daily');
   $('#block-manual').classList.toggle('active', state.mode === 'manual');
   syncInputs();
-  buildAutoList();
   render();
 }
 
 /* ------- Aviso flotante ------- */
 let toastTimer = null;
 function toast(msg) {
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2300);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2300);
 }
 
 /* ------- Botón "Ir a la saga actual" -------
@@ -347,10 +398,10 @@ function exportPayload() {
 function applyImport(text) {
   let data;
   try { data = JSON.parse(text); }
-  catch { toast('⚠️ El contenido no es válido'); return; }
+  catch { toast(t('toastInvalid')); return; }
   const incoming = data && data.state ? data.state : data;  // acepta envuelto o crudo
   if (!incoming || typeof incoming !== 'object' || (!('manualMarks' in incoming) && !('mode' in incoming))) {
-    toast('⚠️ No se reconoce el progreso'); return;
+    toast(t('toastUnrecognized')); return;
   }
   const base = defaultState();
   state = {
@@ -360,7 +411,7 @@ function applyImport(text) {
   };
   saveState();
   refreshUIFromState();
-  toast('Progreso importado ✓');
+  toast(t('toastImported'));
   closeModal();
 }
 
@@ -369,10 +420,10 @@ $('#export-file').addEventListener('click', () => {
   const blob = new Blob([exportPayload()], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = `one-piece-progreso-${todayISO()}.json`;
+  a.href = url; a.download = `${t('exportFileName')}-${todayISO()}.json`;
   document.body.appendChild(a); a.click(); a.remove();
   URL.revokeObjectURL(url);
-  toast('Archivo exportado ✓');
+  toast(t('toastExported'));
 });
 
 // Importar desde archivo
@@ -382,7 +433,7 @@ $('#import-file').addEventListener('change', (e) => {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = () => applyImport(String(reader.result));
-  reader.onerror = () => toast('⚠️ No se pudo leer el archivo');
+  reader.onerror = () => toast(t('toastReadFail'));
   reader.readAsText(file);
   e.target.value = '';  // permite reimportar el mismo archivo
 });
@@ -401,17 +452,17 @@ $('#copy-code').addEventListener('click', async () => {
   box.setSelectionRange(0, box.value.length);  // móvil
   try {
     await navigator.clipboard.writeText(box.value);
-    toast('Código copiado ✓');
+    toast(t('toastCopied'));
   } catch {
-    try { document.execCommand('copy'); toast('Código copiado ✓'); }   // respaldo en file://
-    catch { toast('⚠️ Copia manual (Ctrl+C)'); }
+    try { document.execCommand('copy'); toast(t('toastCopied')); }   // respaldo en file://
+    catch { toast(t('toastCopyManual')); }
   }
 });
 
 // Aplicar el código que haya en el cuadro
 $('#apply-code').addEventListener('click', () => {
   const raw = $('#code-box').value.trim();
-  if (!raw) { toast('⚠️ Pega un código primero'); return; }
+  if (!raw) { toast(t('toastPasteFirst')); return; }
   let text;
   try { text = b64decode(raw); }
   catch { text = raw; }  // por si pegaron el JSON en crudo

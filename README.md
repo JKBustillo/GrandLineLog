@@ -20,6 +20,7 @@ Página 100 % estática (HTML + CSS + JavaScript *vanilla*, sin dependencias ni 
   - *Bitácora* — diario del capitán con Log Pose y estética de pergamino.
 - **💾 Copia de seguridad**: exporta/importa tu progreso como archivo `.json` o como código de texto, para tener backup o moverlo a otro navegador/PC.
 - **🧭 Botón "Ir a la saga actual"** que aparece solo cuando la saga en curso no está a la vista.
+- **🌐 Bilingüe (Español / Inglés)** con un selector ES/EN; por defecto en español. Traduce toda la interfaz y los nombres del contenido (sagas, películas, OVAs, especiales, cortos y omakes).
 
 ---
 
@@ -36,7 +37,7 @@ No necesita instalación ni servidor: **abre `index.html`** en tu navegador (dob
 Cuando salga una saga nueva, edita **`data.js`** y añade una línea en su lugar cronológico dentro del array `CONTENT`:
 
 ```js
-{ id:'s-nueva-saga', type:'saga', title:'Saga de ...', start:1234, end:1260 },
+{ id:'s-nueva-saga', type:'saga', title:{ es:'Saga de ...', en:'... Arc' }, start:1234, end:1260 },
 ```
 
 La saga en emisión (**Elbaph**) tiene `end: null`, así que usa automáticamente el último episodio emitido. Ese número (`DEFAULT_LATEST_EPISODE`) se ajusta en `data.js` o desde el propio botón de **Ajustes**. Todo está comentado al inicio del archivo.
@@ -50,6 +51,7 @@ GrandLineLog/
 ├── index.html   # estructura de la página
 ├── styles.css   # los dos temas visuales
 ├── app.js       # lógica de conteo, marcado y guardado
+├── i18n.js      # textos de interfaz (Español / Inglés)
 └── data.js      # lista de todo el contenido (aquí se añaden sagas)
 ```
 

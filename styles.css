@@ -142,6 +142,12 @@ body[data-theme="bitacora"] .title{ font-weight:900; letter-spacing:2px; }
   background:linear-gradient(180deg, var(--gold), var(--gold-deep));
   color:var(--ink); box-shadow:0 4px 14px rgba(0,0,0,.3); }
 
+/* Fila con los dos conmutadores (tema + idioma) */
+.toggles-row{ display:flex; gap:12px; justify-content:center; align-items:center;
+  flex-wrap:wrap; margin-top:22px; }
+.toggles-row .theme-toggle{ margin-top:0; }
+.lang-toggle button{ min-width:46px; }
+
 /* =========================== PANEL CONTROL =========================== */
 .panel{
   margin:28px 0 10px; padding:26px; position:relative;
@@ -323,6 +329,8 @@ body[data-theme="bitacora"] .entry.extra .card{ background:linear-gradient(180de
 .sheet h3{ font-family:var(--font-title); color:var(--gold-deep); margin:0 0 4px;
   font-size:1.4rem; letter-spacing:1px; }
 .sheet .lead{ font-family:var(--font-accent); font-size:1.2rem; color:var(--ink-soft); margin:0 0 18px; }
+.modal-head{ font-family:var(--font-title); font-size:.72rem; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--ink-soft); margin:18px 0 2px; }
 .close-x{ position:absolute; top:14px; right:14px; width:36px; height:36px; border-radius:50%;
   border:1px solid var(--paper-edge); background:rgba(0,0,0,.05); color:var(--ink); font-size:1.1rem; }
 
