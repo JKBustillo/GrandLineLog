@@ -300,7 +300,9 @@ body[data-theme="bitacora"] .timeline::before{
   opacity:.92; pointer-events:none; text-transform:uppercase;
   box-shadow:0 0 0 1px rgba(0,0,0,.05);
   animation:stamp .35s var(--ease); }
-.entry.done .check{ border-color:var(--stamp); background:var(--stamp); color:#fff; }
+/* ya marcado: el sello "VISTO" habla por sí solo, el check queda como zona de clic invisible */
+.entry.done .check{ border-color:transparent; background:transparent; color:transparent; }
+.entry.done .check:hover{ border-color:var(--stamp); }
 @keyframes stamp{ 0%{ transform:translateY(-50%) rotate(-14deg) scale(2.4); opacity:0; }
   60%{ transform:translateY(-50%) rotate(-14deg) scale(.92); opacity:1; }
   100%{ transform:translateY(-50%) rotate(-14deg) scale(1);} }
