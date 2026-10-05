@@ -40,7 +40,7 @@ Cuando salga una saga nueva, edita **`data.js`** y añade una línea en su lugar
 { id:'s-nueva-saga', type:'saga', title:{ es:'Saga de ...', en:'... Arc' }, start:1234, end:1260 },
 ```
 
-La saga en emisión (**Elbaph**) tiene `end: null`, así que usa automáticamente el último episodio emitido. Ese número (`DEFAULT_LATEST_EPISODE`) se ajusta en `data.js` o desde el propio botón de **Ajustes**. Todo está comentado al inicio del archivo.
+La saga en emisión (**Elbaph**) tiene `end: null`, así que usa automáticamente el último episodio emitido. Ese número se consulta a [AniList](https://anilist.co) una vez al día; si no hay conexión se usa `DEFAULT_LATEST_EPISODE` de `data.js`. También se puede subir a mano desde el botón de **Ajustes**. Todo está comentado al inicio del archivo.
 
 ---
 
