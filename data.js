@@ -25,11 +25,12 @@
      El orden del array = el orden en que se pinta. Mantenlo cronológico.
 
    ► ÚLTIMO EPISODIO EMITIDO:
-     Actualiza DEFAULT_LATEST_EPISODE con el último episodio que exista.
+     Se consulta a AniList una vez al día (ver app.js). DEFAULT_LATEST_EPISODE
+     es el respaldo si no hay conexión; conviene subirlo de vez en cuando.
      (También se puede cambiar desde el botón "Ajustes" sin tocar código.)
    ===================================================================== */
 
-const DEFAULT_LATEST_EPISODE = 1160; // ← actualízalo cuando salgan más episodios
+const DEFAULT_LATEST_EPISODE = 1180;
 
 /* Etiquetas legibles (bilingües) y emoji por tipo. */
 const TYPE_INFO = {

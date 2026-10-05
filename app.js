@@ -389,6 +389,38 @@ $('#goto-current').addEventListener('click', () => {
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
+/* ------- Último episodio desde AniList -------
+   Una consulta por día. La fecha va en su propia clave para que no viaje
+   en el export. Solo sube el valor: si el usuario puso uno mayor, se respeta. */
+const ANILIST_CHECK_KEY = 'op-bitacora-anilist-check';
+const ANILIST_QUERY = 'query { Page(perPage: 1) { airingSchedules(mediaId: 21, notYetAired: false, sort: EPISODE_DESC) { episode } } }';
+
+async function syncLatestFromAniList() {
+  try { if (localStorage.getItem(ANILIST_CHECK_KEY) === todayISO()) return; }
+  catch { return; }
+  try {
+    const res = await fetch('https://graphql.anilist.co', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ query: ANILIST_QUERY })
+    });
+    if (!res.ok) return;
+    const json = await res.json();
+    const ep = json?.data?.Page?.airingSchedules?.[0]?.episode;
+    if (!Number.isInteger(ep)) return;
+    // Solo se marca el día tras una respuesta válida, así un fallo se reintenta en la próxima carga.
+    localStorage.setItem(ANILIST_CHECK_KEY, todayISO());
+    if (ep > state.latestEpisode) {
+      state.latestEpisode = ep;
+      saveState();
+      syncInputs();
+      render();
+    }
+  } catch (e) {
+    console.warn('No se pudo consultar AniList:', e);
+  }
+}
+
 /* ------- Importar / Exportar ------- */
 const b64encode = (s) => btoa(unescape(encodeURIComponent(s)));
 const b64decode = (s) => decodeURIComponent(escape(atob(s)));
@@ -469,5 +501,5 @@ $('#apply-code').addEventListener('click', () => {
   applyImport(text);
 });
 
-function init() { refreshUIFromState(); }
+function init() { refreshUIFromState(); syncLatestFromAniList(); }
 init();
