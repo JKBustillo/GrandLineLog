@@ -97,6 +97,7 @@ const CONTENT = [
   { id:'s-umi-ressha',   type:'saga', title:{ es:'Saga del Umi Ressha', en:'Sea Train Arc' }, start:253, end:263 },
   { id:'s-enies',        type:'saga', title:{ es:'Saga de Enies Lobby', en:'Enies Lobby Arc' }, start:264, end:312 },
   { id:'om-1-5',         type:'omake',title:{ es:'Omakes 1 al 5', en:'Omakes 1 to 5' }, sub:'Straw Hat Theater', after:283 },
+  { id:'sp-alabasta-prologue',type:'special', title:{ es:'Episode of Alabasta · Prólogo', en:'Episode of Alabasta · Prologue' }, sub:{ es:'Whiskey Peak (especial TV, 2011)', en:'Whiskey Peak (TV special, 2011)' }, after:312 },
   { id:'m-8',            type:'movie',title:{ es:'Película 8 · Episode of Alabasta: La princesa del desierto y los piratas', en:'Movie 8 · Episode of Alabasta: The Desert Princess and the Pirates' }, sub:'Episode of Alabasta', after:312 },
 
   { id:'s-sunny',        type:'saga', title:{ es:'Saga del Thousand Sunny', en:'Thousand Sunny Arc' }, start:313, end:325 },
