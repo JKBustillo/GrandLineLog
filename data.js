@@ -105,6 +105,7 @@ const CONTENT = [
   { id:'s-ice-hunter',   type:'saga', title:{ es:'Saga de Ice Hunter', en:'Ice Hunter Arc' }, start:326, end:336 },
   { id:'s-thriller',     type:'saga', title:{ es:'Saga de Thriller Bark', en:'Thriller Bark Arc' }, start:337, end:381 },
   { id:'ova-romance-dawn',type:'ova', title:{ es:'Romance Dawn Story', en:'Romance Dawn Story' }, sub:'OVA', after:381 },
+  { id:'sp-monsters',    type:'special', title:{ es:'MONSTERS: 103 Mercies Dragon Damnation', en:'MONSTERS: 103 Mercies Dragon Damnation' }, sub:'Ippaku Sanjou Hiryuu Jigoku', after:381 },
 
   { id:'s-spa',          type:'saga', title:{ es:'Saga de Spa Island', en:'Spa Island Arc' }, start:382, end:384 },
   { id:'s-tobiuo',       type:'saga', title:{ es:'Saga de los Tobiuo Riders', en:'Flying Fish Riders Arc' }, start:385, end:389 },
@@ -116,6 +117,7 @@ const CONTENT = [
 
   { id:'s-marineford',   type:'saga', title:{ es:'Saga de Marineford', en:'Marineford Arc' }, start:457, end:490 },
   { id:'m-11',           type:'movie',title:{ es:'Película 11 · Mugiwara Chase', en:'Movie 11 · Straw Hat Chase' }, sub:'ONE PIECE 3D: Mugiwara Chase', after:490 },
+  { id:'sh-cry-heart',   type:'short',title:{ es:'Cry heart', en:'Cry heart' }, sub:{ es:'Cortos en stop-motion', en:'Stop-motion shorts' }, after:490 },
 
   { id:'s-3d2y',         type:'saga', title:{ es:'Saga 3D2Y', en:'3D2Y Arc' }, start:491, end:516 },
   { id:'s-reunion',      type:'saga', title:{ es:'Saga de la reunión de los Sombrero de Paja', en:"Straw Hats' Reunion Arc" }, start:517, end:522 },
@@ -139,6 +141,7 @@ const CONTENT = [
 
   { id:'s-silver-mine',  type:'saga', title:{ es:'Saga de Silver Mine', en:'Silver Mine Arc' }, start:747, end:750 },
   { id:'sp-heart-gold',  type:'special', title:{ es:'Heart of Gold', en:'Heart of Gold' }, after:750 },
+  { id:'sh-gold-ep0',    type:'short',title:{ es:'Film Gold · Episodio 0', en:'Film Gold · Episode 0' }, sub:'episode 0 711ver.', after:750 },
   { id:'m-13',           type:'movie',title:{ es:'Película 13 · Film Gold', en:'Movie 13 · Film Gold' }, sub:'ONE PIECE FILM: GOLD', after:750 },
 
   { id:'s-zou',          type:'saga', title:{ es:'Saga de Zou', en:'Zou Arc' }, start:751, end:779 },
@@ -158,8 +161,14 @@ const CONTENT = [
 
   { id:'s-wano-final',   type:'saga', title:{ es:'Saga final de Wano', en:'Final Wano Arc' }, start:1031, end:1071 },
   { id:'s-egghead',      type:'saga', title:{ es:'Saga de Egghead', en:'Egghead Arc' }, start:1072, end:1155 },
+  { id:'sp-luffy-law',   type:'special', title:{ es:'Episodio original: Luffy y Law', en:'Original Episode: Luffy & Law' }, sub:'ONE PIECE: Original Episode', after:1085 },
   { id:'sp-fan-letter',  type:'special', title:{ es:'One Piece Fan Letter', en:'One Piece Fan Letter' }, sub:{ es:'Especial (2024)', en:'Special (2024)' }, after:1122 },
+  { id:'sp-log-gyojin',  type:'special', title:{ es:'One Piece Log: Saga de la Isla Gyojin', en:'One Piece Log: Fish-Man Island Saga' }, sub:{ es:'Resumen remasterizado (21 eps)', en:'Remastered recap (21 eps)' }, after:1122 },
+  { id:'sh-koisuru',     type:'short',title:{ es:'ONE PIECE in LOVE', en:'ONE PIECE in LOVE' }, sub:'Koisuru ONE PIECE', after:1122 },
+  { id:'sh-choppers',    type:'short',title:{ es:"CHOPPER's", en:"CHOPPER's" }, sub:{ es:'Mini anime (2026)', en:'Mini anime (2026)' }, after:1155 },
+  { id:'sp-heroines',    type:'special', title:{ es:'ONE PIECE HEROINES', en:'ONE PIECE HEROINES' }, sub:'Episode Nami', after:1155 },
 
   // Saga en emisión: end:null usa "el último episodio emitido" automáticamente.
   { id:'s-elbaph',       type:'saga', title:{ es:'Saga de Elbaph', en:'Elbaph Arc' }, start:1156, end:null },
+  { id:'sh-koisuru-day25',type:'short',title:{ es:"ONE PIECE in LOVE: Especial víspera One Piece Day '25", en:"ONE PIECE in LOVE: ONE PIECE DAY '25 Festival Eve Special" }, after:1156 },
 ];
