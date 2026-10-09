@@ -77,12 +77,12 @@ const CONTENT = [
 
   { id:'s-niebla',       type:'saga', title:{ es:'Saga de la niebla arcoíris', en:'Rainbow Mist Arc' }, start:139, end:143 },
   { id:'m-5',            type:'movie',title:{ es:'Película 5 · La espada sagrada maldita', en:'Movie 5 · The Cursed Holy Sword' }, sub:'Norowareta Seiken', after:143 },
+  { id:'sh-baseball',    type:'short',title:{ es:'¡Objetivo! El rey del béisbol pirata', en:'Take Aim! The Pirate Baseball King!' }, after:143 },
 
   { id:'s-jaya',         type:'saga', title:{ es:'Saga de Jaya', en:'Jaya Arc' }, start:144, end:152 },
   { id:'s-skypiea',      type:'saga', title:{ es:'Saga de Skypiea', en:'Skypiea Arc' }, start:153, end:195 },
   { id:'s-g8',           type:'saga', title:{ es:'Saga del G-8', en:'G-8 Arc' }, start:196, end:206 },
   { id:'s-davy',         type:'saga', title:{ es:'Saga Davy Back Fight', en:'Davy Back Fight Arc' }, start:207, end:219 },
-  { id:'sh-baseball',    type:'short',title:{ es:'¡Objetivo! El rey del béisbol pirata', en:'Take Aim! The Pirate Baseball King!' }, after:219 },
   { id:'sp-tv3',         type:'special', title:{ es:'Especial TV 3 · ¡Protege! El último gran escenario', en:'TV Special 3 · Protect! The Last Great Performance' }, sub:'Mamore! Saigo no Oobutai', after:219 },
 
   { id:'s-oceans-dream', type:'saga', title:{ es:"Saga Ocean's Dream", en:"Ocean's Dream Arc" }, start:220, end:224 },
@@ -120,9 +120,9 @@ const CONTENT = [
   { id:'sh-cry-heart',   type:'short',title:{ es:'Cry heart', en:'Cry heart' }, sub:{ es:'Cortos en stop-motion', en:'Stop-motion shorts' }, after:490 },
 
   { id:'s-3d2y',         type:'saga', title:{ es:'Saga 3D2Y', en:'3D2Y Arc' }, start:491, end:516 },
+  { id:'sp-3d2y',        type:'special', title:{ es:'Episodio 3D2Y', en:'Episode 3D2Y' }, sub:'3D2Y', after:516 },
   { id:'s-reunion',      type:'saga', title:{ es:'Saga de la reunión de los Sombrero de Paja', en:"Straw Hats' Reunion Arc" }, start:517, end:522 },
   { id:'sp-nami',        type:'special', title:{ es:'Episodio de Nami', en:'Episode of Nami' }, sub:'Episode of Nami', after:522 },
-  { id:'sp-3d2y',        type:'special', title:{ es:'Episodio 3D2Y', en:'Episode 3D2Y' }, sub:'3D2Y', after:522 },
 
   { id:'s-gyojin',       type:'saga', title:{ es:'Saga de la Isla Gyojin', en:'Fish-Man Island Arc' }, start:523, end:574 },
   { id:'sp-luffy',       type:'special', title:{ es:'Episodio de Luffy', en:'Episode of Luffy' }, sub:'Episode of Luffy', after:574 },
@@ -150,11 +150,11 @@ const CONTENT = [
   { id:'s-whole-cake',   type:'saga', title:{ es:'Saga de la Isla Whole Cake', en:'Whole Cake Island Arc' }, start:783, end:877 },
   { id:'m-14',           type:'movie',title:{ es:'Película 14 · Estampida', en:'Movie 14 · Stampede' }, sub:'ONE PIECE: STAMPEDE', after:877 },
   { id:'sp-east-blue',   type:'special', title:{ es:'Episode of East Blue', en:'Episode of East Blue' }, sub:'Episode of East Blue', after:877 },
+  { id:'sp-skypiea',     type:'special', title:{ es:'Episode of Skypiea', en:'Episode of Skypiea' }, sub:'Episode of Sorajima', after:877 },
 
   { id:'s-reverie',      type:'saga', title:{ es:'Saga del Nivel Reverie', en:'Reverie Arc' }, start:878, end:889 },
   { id:'s-wano-country', type:'saga', title:{ es:'Saga del País de Wano', en:'Wano Country Arc' }, start:890, end:894 },
   { id:'s-wano',         type:'saga', title:{ es:'Saga de Wano', en:'Wano Arc' }, start:895, end:1028 },
-  { id:'sp-skypiea',     type:'special', title:{ es:'Episode of Skypiea', en:'Episode of Skypiea' }, sub:'Episode of Sorajima', after:1028 },
 
   { id:'s-film-red-intro',type:'saga',title:{ es:'Introducción a Film Red', en:'Film Red Introduction' }, start:1029, end:1030 },
   { id:'m-15',           type:'movie',title:{ es:'Película 15 · Film Red', en:'Movie 15 · Film Red' }, sub:'ONE PIECE FILM: RED', after:1030 },
