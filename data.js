@@ -159,9 +159,10 @@ const CONTENT = [
   { id:'s-film-red-intro',type:'saga',title:{ es:'Introducción a Film Red', en:'Film Red Introduction' }, start:1029, end:1030 },
   { id:'m-15',           type:'movie',title:{ es:'Película 15 · Film Red', en:'Movie 15 · Film Red' }, sub:'ONE PIECE FILM: RED', after:1030 },
 
-  { id:'s-wano-final',   type:'saga', title:{ es:'Saga final de Wano', en:'Final Wano Arc' }, start:1031, end:1071 },
-  { id:'s-egghead',      type:'saga', title:{ es:'Saga de Egghead', en:'Egghead Arc' }, start:1072, end:1155 },
+  { id:'s-wano-final',   type:'saga', title:{ es:'Saga final de Wano', en:'Final Wano Arc' }, start:1031, end:1085 },
   { id:'sp-luffy-law',   type:'special', title:{ es:'Episodio original: Luffy y Law', en:'Original Episode: Luffy & Law' }, sub:'ONE PIECE: Original Episode', after:1085 },
+
+  { id:'s-egghead',      type:'saga', title:{ es:'Saga de Egghead', en:'Egghead Arc' }, start:1086, end:1155 },
   { id:'sp-fan-letter',  type:'special', title:{ es:'One Piece Fan Letter', en:'One Piece Fan Letter' }, sub:{ es:'Especial (2024)', en:'Special (2024)' }, after:1122 },
   { id:'sp-log-gyojin',  type:'special', title:{ es:'One Piece Log: Saga de la Isla Gyojin', en:'One Piece Log: Fish-Man Island Saga' }, sub:{ es:'Resumen remasterizado (21 eps)', en:'Remastered recap (21 eps)' }, after:1122 },
   { id:'sh-koisuru',     type:'short',title:{ es:'ONE PIECE in LOVE', en:'ONE PIECE in LOVE' }, sub:'Koisuru ONE PIECE', after:1122 },
